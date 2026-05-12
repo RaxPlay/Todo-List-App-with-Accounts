@@ -1,17 +1,25 @@
 import express from "express";
 import cors from "cors";
 import { pool } from "./config/db.js";
+import cookieParser from "cookie-parser";
+import router from "./routes/auth.js"
+import { Protect } from "./middleware/auth.js";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser());
+app.use("/api/auth", router)
 
-app.post("/todos", async (req, res) => {
+app.post("/todos", Protect, async (req, res) => {
   try {
     const { todo_name, description } = req.body;
     
-    const newTodo = await pool.query("INSERT INTO todo(todo_name, description) VALUES ($1, $2) RETURNING *", [todo_name, description]);
+    const newTodo = await pool.query("INSERT INTO todo(todo_name, description, user_id) VALUES ($1, $2, $3) RETURNING *", [todo_name, description, req.user.id]);
 
     res.status(201).json(newTodo.rows[0]);
   } catch (err) {
@@ -20,7 +28,7 @@ app.post("/todos", async (req, res) => {
 })
 
 //Getting a specific todo
-app.get("/todos/:id", async (req, res) => {
+app.get("/todos/:id", Protect, async (req, res) => {
   try {
     const { todoId } = req.params;
 
@@ -34,7 +42,7 @@ app.get("/todos/:id", async (req, res) => {
 })
 
 //Getting all todos
-app.get("/todos", async (req,res) => {
+app.get("/todos", Protect, async (req,res) => {
   try {
     const allTodos = await pool.query("SELECT * FROM todo");
 
