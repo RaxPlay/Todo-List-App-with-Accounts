@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import '../Styles/login.css'
 
 export const Login = ({setUser}) => {
@@ -39,6 +39,10 @@ export const Login = ({setUser}) => {
             <i className='fa-solid fa-arrow-right'></i>
           </button>
         </div>
+
+        <Link to="/register" className='text-blue-500 '>
+          <p className='mt-3 duration-300 hover:text-blue-700 hover:underline'>Don't Have an account? Sign-up here</p>
+        </Link>
       </form>
     </div>
   )

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export const Register = ({setUser}) => {
   const [form, setForm] = useState({
@@ -25,7 +25,7 @@ export const Register = ({setUser}) => {
 
   return (
     <div className='w-screen h-[80vh] flex items-center justify-center'>
-      <form className='bg-[#f19c79ff] w-120 h-65 border border-[#c62f2f] rounded-2xl text-center p-4' onSubmit={handleRegistration}>
+      <form className='bg-[#f19c79ff] w-120 h-70 border border-[#c62f2f] rounded-2xl text-center p-4' onSubmit={handleRegistration}>
         <h2 className='text-3xl text-[#F6F4D2FF] mt-2'>Sign Up</h2>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -41,6 +41,10 @@ export const Register = ({setUser}) => {
             <i className='fa-solid fa-arrow-right'></i>
           </button>
         </div>
+
+        <Link to="/login" className='text-blue-500 '>
+          <p className='mt-3 duration-300 hover:text-blue-700 hover:underline'>Already Have an account? Log-in here</p>
+        </Link>
       </form>
     </div>
   )
