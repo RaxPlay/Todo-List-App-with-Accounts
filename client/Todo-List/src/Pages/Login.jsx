@@ -31,7 +31,7 @@ export const Login = ({setUser}) => {
 
         <input type="email" placeholder='Email' value={form.email} onChange={(e) => {setForm({...form, email: e.target.value})}} className='border border-[#C62F2F] bg-[#ce4242] rounded-md p-1 w-full mt-5 text-[#F6F4D2FF]'/>
 
-        <div className='flex items-end w-full  h-14 gap-2 '>
+        <div className='flex items-end w-full h-14 gap-2 '>
           <input type="password" placeholder='Password' value={form.password} onChange={(e) => {setForm({...form, password: e.target.value})}} className='border border-[#C62F2F] bg-[#ce4242] rounded-md p-1 w-fit mt-5 text-[#F6F4D2FF]'/>
 
           <button className='border border-[#C62F2F] bg-[#ce4242] text-white w-full h-8.5 rounded-md duration-300 hover:bg-[#b93333]' 
@@ -40,7 +40,7 @@ export const Login = ({setUser}) => {
           </button>
         </div>
 
-        <Link to="/register" className='text-blue-500 '>
+        <Link to="/register" className='text-blue-500'>
           <p className='mt-3 duration-300 hover:text-blue-700 hover:underline'>Don't Have an account? Sign-up here</p>
         </Link>
       </form>

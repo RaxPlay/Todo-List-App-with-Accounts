@@ -37,7 +37,7 @@ export const App = () => {
       <NavBar user={user} setUser={setUser}/>
 
       <Routes>
-        <Route path="/home" element={<Home/>}></Route>
+        <Route path="/home" element={<Home error={error} user={user}/>}></Route>
         <Route path="/login" element={<Login setUser={setUser}/>}></Route>
         <Route path="/register" element={<Register setUser={setUser}/>}></Route>
         <Route path="/*" element={ <Navigate to='/home'/>}></Route>
