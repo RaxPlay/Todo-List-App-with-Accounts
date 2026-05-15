@@ -16,7 +16,7 @@ export const Home = ({error, user}) => {
             </h1>
           </div>
           
-          <Todos/>
+          <Todos user={user}/>
 
         </div>
       ) : (

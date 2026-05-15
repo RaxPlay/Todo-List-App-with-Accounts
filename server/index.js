@@ -27,20 +27,6 @@ app.post("/todos", Protect, async (req, res) => {
   }
 })
 
-//Getting a specific todo
-app.get("/todos/:id", Protect, async (req, res) => {
-  try {
-    const { todoId } = req.params;
-
-    const showTodo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", [todoId]);
-
-    res.status(200).json(showTodo.rows[0])
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Task not found" })
-  }
-})
-
 //Getting all todos
 app.get("/todos", Protect, async (req,res) => {
   try {
@@ -53,27 +39,14 @@ app.get("/todos", Protect, async (req,res) => {
   }
 })
 
-//Update specific todo
-app.put("/todos/:id", async (req, res) => {
-  try {
-    const { todoId } = req.params;
-    const { todoName, description } = req.body;
-
-    const updatedTodo = await pool.query("UPDATE todo SET todo_name = $1, description = $2 WHERE todo_id = $3 RETURNING *", [todoName, description, todoId]);
-
-    res.status(200).json(updatedTodo.rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Internal server error" });
-  }
-})
-
 //Delete specific todo
-app.delete("/todos/:id", async (req, res) => {
+app.delete("/todos/:todoId", Protect, async (req, res) => {
   try {
     const { todoId } = req.params;
 
-    const deletedTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [todoId]);
+    console.log(todoId, typeof todoId)
+
+    const deletedTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [parseInt(todoId)]);
 
     res.status(200).json("Task deleted");
   } catch (err) {
